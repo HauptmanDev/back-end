@@ -3,6 +3,7 @@ import cors from 'cors'
 import {Request, Response, NextFunction} from 'express'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
+import SomeString from "./SomeString";
 
 const app = express();
 
@@ -35,12 +36,16 @@ someRouter.get('/', (req: Request, res: Response) => {
     res.status(200).json({z: 1})
 });
 
-someRouter.get('/students', (req: Request, res: Response) => {
+someRouter.get('/students', async (req: Request, res: Response) => {
     if (req.query.id !== '1') {
         res.status(266).json({z: 'Давай'})
     } else {
         fakeState.counter += 1;
-        res.status(266).json({z: 'Отстань', count: fakeState.counter})
+        try {
+            const someString = await SomeString.create({str: fakeState.counter})
+        } catch (e) {
+            res.status(266).json({z: req.query, count: fakeState.counter})
+        }
     }
 });
 
