@@ -59,7 +59,3 @@ mongoose.connect('mongodb+srv://db_admin:db_admin@cluster0-myq35.mongodb.net/myD
         console.log('Back-end listening on port:' + process.env.PORT)
     });
 }).catch(e => console.log('MongoDB connection error', e));
-
-app.listen(process.env.PORT, () => {
-    console.log('Back-end listening on port:' + process.env.PORT)
-});
