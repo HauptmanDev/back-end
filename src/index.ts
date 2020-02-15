@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import {Request, Response, NextFunction} from 'express'
 import bodyParser from 'body-parser'
+import mongoose from 'mongoose'
 
 const app = express();
 
@@ -35,7 +36,7 @@ someRouter.get('/', (req: Request, res: Response) => {
 });
 
 someRouter.get('/students', (req: Request, res: Response) => {
-    if(req.query.id !== '1') {
+    if (req.query.id !== '1') {
         res.status(266).json({z: 'Давай'})
     } else {
         fakeState.counter += 1;
@@ -43,7 +44,15 @@ someRouter.get('/students', (req: Request, res: Response) => {
     }
 });
 
-
+mongoose.connect('mongodb+srv://db_admin:db_admin@cluster0-myq35.mongodb.net/myDB?retryWrites=true&w=majority',
+    {useNewUrlParser: true, useUnifiedTopology: true}
+).then(() => {
+    console.log('MongoDB connected');
+//   start
+    app.listen(process.env.PORT, () => {
+        console.log('Back-end listening on port:' + process.env.PORT)
+    });
+}).catch(e => console.log('MongoDB connection error', e));
 
 app.listen(process.env.PORT, () => {
     console.log('Back-end listening on port:' + process.env.PORT)
