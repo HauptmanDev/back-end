@@ -50,6 +50,7 @@ someRouter.get('/students', (req, res) => __awaiter(void 0, void 0, void 0, func
         fakeState.counter += 1;
         try {
             const someString = yield SomeString_1.default.create({ str: fakeState.counter });
+            res.status(200).json({ z: 'Давай', someString });
         }
         catch (e) {
             res.status(266).json({ z: req.query, count: fakeState.counter });

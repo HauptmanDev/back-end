@@ -43,6 +43,7 @@ someRouter.get('/students', async (req: Request, res: Response) => {
         fakeState.counter += 1;
         try {
             const someString = await SomeString.create({str: fakeState.counter})
+            res.status(200).json({z: 'Давай', someString})
         } catch (e) {
             res.status(266).json({z: req.query, count: fakeState.counter})
         }
